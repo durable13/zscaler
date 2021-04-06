@@ -1,0 +1,792 @@
+
+#ziatour {
+  height: 100%;
+  width: 100%;
+  font-family: $roboto-medium;
+  color: $dark-gray;
+  background-color: $white;
+	@include opacity(0);
+	@include transition(opacity 0.5s);
+	position: relative;
+	}
+
+.zia-loaded #ziatour {
+	@include opacity(1 !important);
+	}
+
+.ziatour-existing-content {
+	@include transition(opacity .3s);
+	@include opacity(1);
+	position: absolute;
+	}
+
+.zia-loaded .ziatour-existing-content {
+	@include opacity(0);
+	position: absolute;
+	}
+
+#ziatour .logo {
+	width: 3.62%;
+	text-indent: -1000px;
+	z-index: 1;
+	display: inline-block;
+	position: absolute;
+	}
+/* Only mobile uses the image, .logo is just a click target on desktop. */
+#ziatour .logo img {
+	display: none;
+	}
+#ziatour .logo:after {
+	height: 0;
+	width: 100%;
+	padding-bottom: 48%;
+	display: inline-block;
+	content: '';
+	position: relative;
+	}
+
+#ziatour .btn-exit,
+#ziatour a.btn-exit {
+	top: 1.25em;
+	right: 1.25em;
+	width: 2.5em;
+	height: 2.5em;
+	white-space: nowrap;
+	text-indent: 0;
+	color: transparent;
+	transition: color .3s;
+	background-color: #FFFFFF;
+	border: .25em solid $med-gray;
+	@include boxShadow(.0625em .1875em .25em rgba(0,0,0,.15));
+	border-radius: 50%;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	z-index: 3;
+	position: fixed;
+	}
+#ziatour.dark-color-scheme a.btn-exit {
+	color: transparent;
+	@include boxShadow(.1875em .375em .75em rgba(0,0,0,.3));
+	}
+#ziatour a.btn-exit:hover {
+	color: $orange;
+	border-color: $orange;
+	text-indent: -5em;
+	overflow: visible;
+	}
+#ziatour.dark-color-scheme .btn-exit:hover {
+	color: $white;
+	text-shadow: 0 0 .375em rgba(255,255,255,.3);
+	}
+#ziatour .btn-exit:after,
+#ziatour .video-close:after {
+	font-size: 1.625em;
+	line-height: 1.2;
+	color: $dark-gray;
+	content: '\2716';
+	top: auto;
+	left: 50%;
+	text-indent: 0;
+	display: flex;
+	align-items: center;
+	@include transform(translateX(-50%));
+	position: absolute;
+	}
+#ziatour a.btn-exit:hover:after {
+	color: $black;
+	}
+
+#ziatour .overlay:before,
+#ziatour .overlay:after {
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+  height: auto;
+  width: auto;
+	background: rgba(0,0,0,.7);
+	content: '';
+	z-index: 1;
+	position: absolute;
+	}
+#ziatour .overlay:after {
+	z-index: 0;
+	display: none;
+	}
+
+#ziatour .spinner {
+	top: 50%;
+	left: 50%;
+	height: 4em;
+	width: 4em;
+	margin-top: -2em;
+	border: 5px solid $pale-blue;
+	border-top-color: $blue;
+	@include borderRadius(100%);
+	@include animation(spinner .75s linear infinite);
+	position: absolute;
+	}
+#ziatour .show .spinner {
+	display: inline-block;
+	}
+@-webkit-keyframes spinner {
+	to { @include transform(rotate(360deg)); }
+	}
+@-moz-keyframes spinner {
+	to { @include transform(rotate(360deg)); }
+	}
+@-ms-keyframes spinner {
+	to { @include transform(rotate(360deg)); }
+	}
+@keyframes spinner {
+	to { @include transform(rotate(360deg)); }
+	}
+
+#ziatour .nodes {
+	top: 0;
+	left: 0;
+	height: 100%;
+	position: relative;
+	}
+#ziatour #desktop.nodes {
+	display: block;
+	}
+#ziatour #mobile.nodes {
+	display: none;
+	}
+#ziatour .nodes > div {
+	top: 0;
+	left: 0;
+	height: 100%;
+	@include opacity(0);
+	display: none;
+	position: relative;
+	}
+#ziatour .nodes > div.easein {
+	@include animation(easein .25s forwards);
+	}
+@-webkit-keyframes easein {
+	0% { display: block; @include opacity(0); }
+	100% { display: block; @include opacity(1); }
+}
+@-moz-keyframes easein {
+	0% { display: block; @include opacity(0); }
+	100% { display: block; @include opacity(1); }
+}
+@-ms-keyframes easein {
+	0% { display: block; @include opacity(0); }
+	100% { display: block; @include opacity(1); }
+}
+@keyframes easein {
+	0% { display: block; @include opacity(0); }
+	100% { display: block; @include opacity(1); }
+}
+
+#ziatour .nodes > div.show {
+	@include opacity(1);
+	display: block;
+	}
+#ziatour .nodes .screen img {
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: none;
+	position: absolute;
+	}
+/* bg is the base image that establishes the screen proportions so it has to be relative */
+/* hover and focus states are absolute positioned on top of the bg */
+#ziatour .nodes > div .screen img.bg {
+	display: block;
+	position: relative; 
+	}
+#ziatour .nodes > div.hover .screen img.hover,
+#ziatour .nodes > div.focus .screen img.focus {
+	display: block;
+	}
+#ziatour .nodes > div .target:not(.cta) {
+	cursor: pointer;
+	z-index: 1;
+	position: absolute;
+	}
+
+#ziatour .dialog,
+#ziatour .marker {
+	border-radius: .1875em;
+	color: $dark-gray;
+	background-color: $ivory;
+	z-index: 1;
+	position: absolute;
+	}
+#ziatour .dialog {
+	width: 36%;
+	padding: .675em 2em 3.25em;
+	@include boxShadow(.1875em .25em .625em $med-gray);
+  top: 50%;
+  left: 50%;
+	@include transform(translate(-50%,-50%));
+  position: absolute;
+	}
+zzz#ziatour .overlay .dialog {
+	@include boxShadow(none);
+	}
+#ziatour .dark-color-scheme .dialog,
+#ziatour .dark-color-scheme .marker {
+	@include boxShadow(none);
+	}
+#ziatour .dialog.graphic-header {
+	padding: 0;
+	}
+#ziatour .dialog.graphic-header .content {
+	padding: .675em 2em 3.25em;
+	}
+#ziatour .marker {
+	font-size: .9em;
+	width: 22%;
+	min-height: 5.55em; /* match pointer height */
+	padding: .625em 1em .75em;
+	@include boxShadow(.1875em .25em .625em $med-gray);
+	}
+#ziatour .marker.small {
+	display: flex;
+	align-items: center;
+	padding: 1em 1.5em;
+	}
+#ziatour .dialog.blue {
+	color: $white;
+	padding-top: 2em;
+	padding-bottom: 4em;
+	background-color: $blue;
+	background: linear-gradient(212deg, $blue 10%, #0480B2 90%);
+	@include boxShadow(.1875em .25em .625em $dark-gray);
+	overflow: hidden;
+	}
+#ziatour .dialog.blue h3,
+#ziatour .dialog.blue h2,
+#ziatour .dialog.blue strong {
+	color: $white;
+	}
+#ziatour .dialog.blue .bg-img {
+	width: 40%;
+	top: -.5em;
+	right: -.5em;
+	z-index: -1;
+	@include borderRadius(.1875em);
+	position: absolute;
+	}
+#ziatour .dialog .icon,
+#ziatour .marker .icon {
+	width: auto;
+ 	height: 1.5em;
+	margin: 0 .25em -.15em;
+	display: inline-block;
+	}
+#ziatour .dialog h2 {
+	margin-bottom: .8125em;
+	}
+#ziatour .dialog ul {
+	margin-left: 1.5em;
+	}
+#ziatour .dialog li {
+	margin: 0 0 .375em;
+	list-style: none;
+	position: relative;
+	}
+#ziatour .dialog li:before  {
+	height: .4em;
+	width: .4em;
+	top: .4em;
+	left: -1.25em;
+	background-color: $dark-gray;
+	@include transform(rotate(45deg));
+	content: '';
+	position: absolute;
+	}
+#ziatour .dialog.blue li:before  {
+	background-color: $white;
+	}
+
+#ziatour .border-top:after,
+#ziatour .border-bottom:after,
+#ziatour .border-right:after,
+#ziatour .border-left:after {
+	background-color: $orange;
+	content: '';
+	position: absolute;
+	}
+#ziatour .border-top:after {
+	left: 0;
+	top: -.125em;
+	height: .375em;
+	width: 100%;
+	@include borderRadius(.1875em .1875em 0 0);
+	}
+#ziatour .border-bottom:after {
+	left: 0;
+	bottom: -.125em;
+	height: .375em;
+	width: 100%;
+	@include borderRadius(0 0 .1875em .1875em);
+	}
+#ziatour .border-left:after {
+	width: .375em;
+	height: 100%;
+	top: 0;
+	left: -.125em;
+	@include borderRadius(.1875em 0 0 .1875em);
+	}
+#ziatour .border-right:after {
+	width: .375em;
+	height: 100%;
+	top: 0;
+	right: -.125em;
+	@include borderRadius(0 .1875em .1875em 0);
+	}
+
+#ziatour .pointer-top-left:before,
+#ziatour .pointer-top-right:before,
+#ziatour .pointer-bot-left:before,
+#ziatour .pointer-left-top:before,
+#ziatour .pointer-right-top:before,
+#ziatour .pointer-right-bot:before {
+	width: 0;
+	height: 0;
+	border-top: 2.765em solid transparent;
+	border-left: 2.25em solid $orange;
+	border-bottom: 2.765em solid transparent;
+	content: '';
+	position: absolute;
+	}
+#ziatour .pointer-top-left:before {
+	left: .068em;
+	top: -.06em;
+	@include transform(rotate(270deg));
+	@include transformOrigin(top left);
+	}
+#ziatour .pointer-top-right:before {
+	top: -.11em;
+	right: 3.35em;
+	@include transform(rotate(270deg));
+	@include transformOrigin(top left);
+	}
+#ziatour .pointer-bot-left:before {
+	bottom: -.09em;
+	left: .112em;
+	top: auto;
+	@include transform(rotate(90deg));
+	@include transformOrigin(bottom left);
+	}
+#ziatour .pointer-left-top:before {
+	top: .057em;
+	left: -2.33em;
+	@include transform(rotate(180deg));
+	}
+#ziatour .pointer-right-top:before {
+	top: .057em;
+	right: -2.302em;
+	}
+#ziatour .pointer-right-bot:before {
+	right: -2.302em;
+	bottom: .057em;
+	top: auto;
+	@include transformOrigin(bottom right);
+	}
+#ziatour .pointer-top-left,
+#ziatour .pointer-top-right,
+#ziatour .pointer-left-top,
+#ziatour .pointer-right-top {
+	padding-bottom: 2em;
+	padding-bottom: 1em;
+	}
+#ziatour .pointer-top-left,
+#ziatour .pointer-top-right {
+	padding-bottom: 1.5em;
+	}
+#ziatour .pointer-bot-left {
+	padding-top: .5em;
+	padding-bottom: 1.25em !important;
+	}
+#ziatour .pointer-right-bot {
+	padding-top: .5em;
+	padding-bottom: 1.5em;
+	}
+
+#ziatour .tooltip {
+	width: 1em;
+	height: 1em;
+	z-index: 2;
+	position: absolute;
+	}
+#ziatour .tooltip:after {
+	top: 0;
+	left: 0;
+	height: 1vw;
+	width: 1vw;
+	width: 1em;
+	height: 1em;
+	cursor: pointer;
+	background-color: $orange;
+	@include boxShadow(.1875em .25em .625em rgba(0, 0, 0, .3));
+	@include transform(rotate(45deg));
+	content: '';
+	position: absolute;
+	}
+#ziatour .shape {
+	font-size: .8em;
+	top: .6em;
+	left: .6em;
+	width: 18em;
+	max-width: 15vw;
+	@include opacity(0);
+	@include transition(opacity .5s);
+	@include borderRadius(3px);
+	@include filter( drop-shadow( .1875em .1875em .375em rgba(0, 0, 0, .3) ) );
+	visibility: hidden;
+	overflow: hidden;
+	z-index: 1;
+	position: absolute;
+	}
+#ziatour .tooltip:hover .shape {
+	@include opacity(1 !important);
+	@include transition(opacity .5s !important);
+	visibility: visible !important;
+	}
+#ziatour .shape .text {
+	background-color: $ivory;
+	padding: .75em 1em;
+	display: flex;
+	align-items: center;
+	@include clipPath(polygon(1.5em 0, 25em 0, 25em 10em, 0 10em, 0 1.5em))
+	}
+@-webkit-keyframes tooltip-show {
+	100% { @include opacity(1); visibility: visible; }
+	}
+@-moz-keyframes tooltip-show {
+	100% { @include opacity(1); visibility: visible; }
+	}
+@-ms-keyframes tooltip-show {
+	100% { @include opacity(1); visibility: visible; }
+	}
+@keyframes tooltip-show {
+	100% { @include opacity(1); visibility: visible; }
+	}
+@-webkit-keyframes tooltip-close {
+	100% { @include opacity(0); visibility: hidden; }
+	}
+@-moz-keyframes tooltip-close {
+	100% { @include opacity(0); visibility: hidden; }
+	}
+@-ms-keyframes tooltip-close {
+	100% { @include opacity(0); visibility: hidden; }
+	}
+@keyframes tooltip-close {
+	100% { @include opacity(0); visibility: hidden; }
+	}
+
+#ziatour #email-capture {
+	width: 100%;
+	height: 2.75em;
+	left: 0;
+	bottom: 0;
+	position: absolute;
+	}
+#ziatour #email-capture form {
+	height: 100%;
+	background-color: $white;
+	@include borderRadius(0 0 3px 3px);
+	}
+#ziatour #email-capture input[name=email] {
+	font-family: $serif;
+	height: 94%;
+	width: 100%;
+	padding: 0 8.75em 0 2em;
+	margin: 0;
+	outline: 0;
+	border: none;
+	color: $med-black;
+	}
+#ziatour #email-capture input[name=email].flash-field {
+	color: inherit;
+	background-color: $white !important;
+	@include boxShadow(inset 0 0 10px $blue);
+	@include animation(flash .9s 1 forwards);
+	}
+@-webkit-keyframes flash {
+	0% { color: transparent; }
+	20% { color: transparent; }
+	20.1% { color: $dark-gray; }
+	100% { color: $dark-gray; }
+	}
+@-moz-keyframes flash {
+	0% { color: transparent; }
+	20% { color: transparent; }
+	20.1% { color: $dark-gray; }
+	100% { color: $dark-gray; }
+	}
+@-ms-keyframes flash {
+	0% { color: transparent; }
+	20% { color: transparent; }
+	20.1% { color: $dark-gray; }
+	100% { color: $dark-gray; }
+	}
+@keyframes flash {
+	0% { color: transparent; }
+	20% { color: transparent; }
+	20.1% { color: $dark-gray; }
+	100% { color: $dark-gray; }
+	}
+#ziatour #email-capture input:-internal-autofill-selected {
+	background: $white !important;
+	}
+#ziatour #email-capture input:-webkit-autofill,
+#ziatour #email-capture input:-webkit-autofill:hover, 
+#ziatour #email-capture input:-webkit-autofill:focus {
+	border: none;
+	-webkit-text-fill-color: $med-black;
+	@include boxShadow(0 0 0 1000px $white inset);
+	@include transition(background-color 5000s ease-in-out 0s);
+}
+
+#ziatour .cta {
+	height: 2.75em;
+	min-width: 8em;
+	color: $white;
+	right: 0;
+	bottom: 0;
+	background-color: $orange;
+	cursor: pointer;
+	padding: .75em 1em .875em .75em;
+	z-index: 1;
+	@include borderRadius(0 0 3px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	}
+#ziatour a.cta {
+	height: auto;
+	color: $white;
+	text-decoration: none;
+	}
+#ziatour .cta:before {
+	top: 0;
+	left: -1.4em;
+	width: 2.75em;
+	height: 2.75em;
+	height: 100%;
+	background-color: $orange;
+	@include clipPath(polygon(50% 0, 100% 0, 100% 100%, 0% 100%));
+	content: '';
+	z-index: -1;
+	position: absolute;
+	}
+#ziatour .cta .arrow {
+	margin-left: .75rem;
+	margin-bottom: -.078125em;
+	width: 0;
+	height: 0;
+	border-top: .375em solid transparent;
+	border-left: .5625em solid $white;
+	border-bottom: .375em solid transparent;
+	@include transition(right .2s ease-in-out);
+	display: inline-block;
+	content: '';
+	position: relative;
+	}
+#ziatour .cta.on .arrow {
+	right: 1.5em;
+	}
+
+#ziatour a.btn-back {
+	font-size: .9375em;
+	line-height: 1;
+	color: rgba(255,147,30,0);
+	left: 0.625em;
+	bottom: .5em;
+	width: 3em;
+	text-decoration: none;
+	outline: none;
+	padding-left: 1em;
+	@include transition(all .2s);
+	display: block;
+	position: absolute;
+	}
+#ziatour a.btn-back:before {
+	top: 0.172em;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-top: .3em solid transparent;
+	border-right: .5em solid rgba(255,147,30,.35);
+	border-bottom: .3em solid transparent;
+	@include transition(all .2s);
+	display: block;
+	content: '';
+	position: absolute;
+	}
+#ziatour a.btn-back:hover {
+	color: rgba(255,147,30,1);
+	}
+#ziatour a.btn-back:hover:before {
+	border-right-color: rgba(255,147,30,1);
+	}
+#ziatour .pointer-left-top a.btn-back {
+	left: 1em;
+	}
+#ziatour .pointer-left-top a.btn-back,
+#ziatour .pointer-top-left a.btn-back,
+#ziatour .pointer-top-right a.btn-back,
+#ziatour .pointer-right-top .btn-back,
+#ziatour .pointer-right-bot a.btn-back {
+	bottom: .375em;
+	}
+
+/* Debug tools */
+#ziatour.debug .nodes > div.show .target:not(.cta) {
+	border: 1px solid $debug;
+	}
+#ziatour.debug #navbar {
+	height: 12px;
+	bottom: 5px;
+	left: 50%;
+	@include transform(translateX(-50%));
+	z-index: 1;
+	position: fixed;
+	}
+#ziatour.debug #navbar > div {
+	height: 100%;
+	width: 20px;
+	margin: 2px;
+	cursor: pointer;
+	background-color: $dark-blue;
+	@include opacity(.5);
+	display: inline-block;
+	z-index: 1;
+	}
+#ziatour.debug #navbar > div.active {
+	@include opacity(.85);
+	}
+
+
+/* MOBILE AND SMALL DEVICES */
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait),
+	only screen and (max-device-width: 961px) and (orientation: landscape) {
+
+	body {
+		height: 100% !important;
+		font-size: 16px !important;
+		}
+	#ziatour #desktop {
+		display: none !important;
+		}
+	#ziatour #mobile {
+		display: block !important;
+		}
+	#ziatour #mobile div.dialog {
+		width: 100%;
+		min-height: 100%;
+		padding: 8% 32% 4em 4em;
+		display: flex;
+		flex-direction: row;
+		}
+	#ziatour #mobile div.dialog .content {
+		align-self: center;
+		}
+	body #ziatour .logo {
+		top: 6%;
+		left: 2em;
+		width: 22%;
+    z-index: 1;
+		}
+	body #ziatour .logo img {
+		display: block;
+		}
+	body #ziatour .logo:after {
+		display: none;
+		}
+	#ziatour #mobile .dialog .bg-img {
+		width: 32%;
+		}
+	#ziatour #mobile #email-capture {
+    height: 3.5em;
+		}
+	#ziatour #mobile input[name=email] {
+		padding: 0 9.5em 0 4em;
+		}
+	#ziatour #mobile .cta {
+		height: 3.5em;
+		min-width: 12em;
+		}
+}
+
+/* Portrait orientation */
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+
+	body {
+		font-size: 20px !important;
+		}
+	#ziatour h1,
+	#ziatour h2 {
+		font-size: 1.5em;
+		}
+	#ziatour h3 {
+		font-size: 1.375em;
+		}
+	body #ziatour .logo {
+		top: 4%;
+		width: 60%;
+		left: 50%;
+		transform: translateX(-50%);
+		}
+	#ziatour #mobile div.dialog {
+		text-align: center;
+		padding: 2em 1.5em 4.5em;
+		top: 0;
+		left: 0;
+		transform: none;
+    display: block;
+		}
+	#ziatour #mobile .dialog .bg-img {
+		width: 72%;
+		top: 0;
+		right: 0;
+		margin: 2em auto 1em;
+		position: relative;
+		}
+	#ziatour #mobile .content {
+    margin-top: 24%;
+		}
+	#ziatour #mobile .dialog ul {
+		text-align: left;
+		}
+	body #ziatour #mobile input[name=email] {
+		padding: 0 3.25em 0 1em;
+		}
+	#ziatour .border-bottom:after {
+		height: .5em;
+		}
+}
+
+/* Portrait orientation - narrow device */
+@media only screen and (max-device-width: 360px) and (orientation: portrait) {
+
+	body {
+		font-size: 18px !important;
+		}
+	#ziatour #mobile div.dialog {
+		padding: 2em 1em 4.5em;
+		}
+	#ziatour #mobile .dialog .bg-img {
+		width: 80%;
+		margin: 8% auto 0;
+		}
+}
+
+
+/***** END GLOBAL STYLES - DO NOT EDIT ABOVE THIS LINE *****/
+/**/
+/**/
+/**/
+/**/

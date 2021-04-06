@@ -1,0 +1,170 @@
+
+@mixin boxSizing($prop) {
+	-webkit-box-sizing: $prop;
+	-ms-box-sizing: $prop;
+	-moz-box-sizing: $prop;
+	-o-box-sizing: $prop;
+	box-sizing: $prop;
+	}
+
+@mixin opacity($prop) {
+	-webkit-opacity: $prop;
+	-ms-opacity: $prop;
+	-moz-opacity: $prop;
+	-o-opacity: $prop;
+	opacity: $prop;
+	}
+
+@mixin transform($prop) {
+	-webkit-transform: $prop;
+	-ms-transform: $prop;
+	-moz-transform: $prop;
+	-o-transform: $prop;
+	transform: $prop;
+	}
+
+@mixin transformOrigin($prop) {
+	-webkit-transform-origin: $prop;
+	-ms-transform-origin: $prop;
+	-moz-transform-origin: $prop;
+	-o-transform-origin: $prop;
+	transform-origin: $prop;
+	}
+
+@mixin borderRadius($prop) {
+	-webkit-border-radius: $prop;
+	-ms-border-radius: $prop;
+	-moz-border-radius: $prop;
+	-o-border-radius: $prop;
+	border-radius: $prop;
+	}
+
+@mixin transition($prop) {
+	-webkit-transition: $prop;
+	-ms-transition: $prop;
+	-moz-transition: $prop;
+	-o-transition: $prop;
+	transition: $prop;
+	}
+
+@mixin animation($prop) {
+	-webkit-animation: $prop;
+	-ms-animation: $prop;
+	-moz-animation: $prop;
+	-o-animation: $prop;
+	animation: $prop;
+	}
+
+@mixin animationTwo($prop1,$prop2) {
+	-webkit-animation: $prop1,$prop2;
+	-ms-animation: $prop1,$prop2;
+	-moz-animation: $prop1,$prop2;
+	-o-animation: $prop1,$prop2;
+	animation: $prop1,$prop2;
+	}
+
+@mixin animation-name($prop) {
+	-webkit-animation-name: $prop;
+	-ms-animation-name: $prop;
+	-moz-animation-name: $prop;
+	-o-animation-name: $prop;
+	animation-name: $prop;
+	}
+
+@mixin animation-duration($prop) {
+	-webkit-animation-duration: $prop;
+	-ms-animation-duration: $prop;
+	-moz-animation-duration: $prop;
+	-o-animation-duration: $prop;
+	animation-duration: $prop;
+	}
+
+@mixin animation-timing-function($prop) {
+	-webkit-animation-timing-function: $prop;
+	-ms-animation-timing-function: $prop;
+	-moz-animation-timing-function: $prop;
+	-o-animation-timing-function: $prop;
+	animation-timing-function: $prop;
+	}
+
+@mixin animation-delay($prop) {
+	-webkit-animation-delay: $prop;
+	-ms-animation-delay: $prop;
+	-moz-animation-delay: $prop;
+	-o-animation-delay: $prop;
+	animation-delay: $prop;
+	}
+
+@mixin animation-iteration-count($prop) {
+	-webkit-animation-iteration-count: $prop;
+	-ms-animation-iteration-count: $prop;
+	-moz-animation-iteration-count: $prop;
+	-o-animation-iteration-count: $prop;
+	animation-iteration-count: $prop;
+	}
+
+@mixin animation-direction($prop) {
+	-webkit-animation-direction: $prop;
+	-ms-animation-direction: $prop;
+	-moz-animation-direction: $prop;
+	-o-animation-direction: $prop;
+	animation-direction: $prop;
+	}
+
+@mixin animation-fill-mode($prop) {
+	-webkit-animation-fill-mode: $prop;
+	-ms-animation-fill-mode: $prop;
+	-moz-animation-fill-mode: $prop;
+	-o-animation-fill-mode: $prop;
+	animation-fill-mode: $prop;
+	}
+
+@mixin animation-play-state($prop) {
+	-webkit-animation-play-state: $prop;
+	-ms-animation-play-state: $prop;
+	-moz-animation-play-state: $prop;
+	-o-animation-play-state: $prop;
+	animation-play-state: $prop;
+	}
+
+@mixin userSelect($prop) {
+	-webkit-user-select: none;
+	-ms-user-select: $prop;
+	-moz-user-select: none;
+	-o-user-select: $prop;
+	user-select: none;
+	}
+
+@mixin textSizeAdjust($prop) {
+  -ms-text-size-adjust: $prop;
+  -webkit-text-size-adjust: $prop;
+	}
+
+@mixin boxShadow($prop) {
+	-webkit-box-shadow: $prop;
+	-ms-box-shadow: $prop;
+	-moz-box-shadow: $prop;
+	-o-box-shadow: $prop;
+	box-shadow: $prop;
+	}
+
+@mixin filter($prop) {
+	-webkit-filter: $prop;
+	filter: $prop;
+	}
+
+@mixin clipPath($prop) {
+	-webkit-clip-path: $prop;
+	clip-path: $prop;
+	}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+html { width: 100%; height:100%; box-sizing: border-box; @include textSizeAdjust(100%); }
+body { width: 100%; height: 100%; line-height: 1.25; font-size: 16px; font-family: sans-serif; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; }
+body,main,article,header,footer,nav,section,aside,dialog,details,fieldset,figcaption,figure,form,hgroup,h1,h2,h3,h4,h5,h6,div,p,pre,hr,nav,ul,ol,li,blockquote,address,dl,dt,dd,table,tfoot,canvas,video,audio,noscript { @include boxSizing(border-box); display: block; margin: 0; padding: 0; }
+a,abbr,acronym,b,bdo,big,br,button,cite,code,dfn,em,i,input,kbd,label,map,object,output,q,samp,script,select,small,span,strong,sub,sup,textarea,time,tt,var { display:inline; }
+h1 { font-size: 2.0rem; } /* Chrome default margin-block-start/end: 0.67em; */
+h2 { font-size: 1.5rem; } /* Chrome default margin-block-start/end: 0.83em; */
+h3 { font-size: 1.17rem; } /* Chrome default margin-block-start/end: 1.0em; */
+h4 { font-size: 1.0rem; } /* Chrome default margin-block-start/end: 1.33em; */
+h5 { font-size: 0.83rem; } /* Chrome default margin-block-start/end: 1.67em; */
+h6 { font-size: 0.67rem; } /* Chrome default margin-block-start/end: 2.33em; */
+h1,h2,h3,h4,h5,h6 { @include boxSizing(border-box); padding: 0; font-weight: bold; line-height: inherit; margin-block-start: 0.67rem; margin-block-end: 0.67rem; }
+a,a:active,a:focus,a:hover { text-decoration: underline; color: inherit; }
+a { text-decoration: underline; }
+a,button { color: inherit; transition: 0.3s; box-sizing: border-box; }
+img { max-width: 100%; height: auto; border: 0; display:block; }
+svg:not(:root) { overflow: hidden; }
+iframe { border: none; }
+strong { font-weight: bold; }
+table { border-collapse: collapse; border-spacing: 0; }
+button,input,select,textarea { margin: 0; vertical-align: baseline; overflow: visible; border: 0; font: inherit; -webkit-font-smoothing: inherit; cursor: pointer; border-radius: 0; border: none; outline: none; }
+input[type="checkbox"] { padding: 0; }
+input[disabled] { background: inherit; }
+textarea { overflow: auto; vertical-align: top; }
+input, textarea { cursor: text; }
+::-webkit-input-placeholder,
+::placeholder { font-weight: normal; }
+/*
+::-moz-focus-inner { padding: 0; border: 0; }
+:focus { outline: 0; }
+*/

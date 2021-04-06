@@ -1,0 +1,29 @@
+{
+  "name": "ro3sf-zscaler-demo",
+  "version": "1.0.0",
+  "description": "Ro3SF ZScaler Demo",
+  "author": "Erich Richter",
+  "license": "ISC",
+  "main": "./gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "zscaler.git"
+  },
+  "scripts": {
+    "grunt": "grunt"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-sass": "^2.0.0",
+    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-minify-html": "^3.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-git": "^1.0.14"
+  },
+  "dependencies": {
+    "npm": "^7.5.2"
+  }
+}

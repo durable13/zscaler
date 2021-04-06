@@ -1,0 +1,20 @@
+/***** FONTS *****/
+
+$roboto-medium: Roboto Medium, sans serif;
+$roboto-bold: Roboto Bold, sans serif;
+$serif: Courier New;
+
+@font-face {
+    font-family: 'Roboto Medium';
+    src: url('../font/roboto/roboto_medium/Roboto-Medium-webfont.woff') format('woff'), url('../font/roboto/roboto_medium/Roboto-Medium-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+@font-face {
+    font-family: 'Roboto Bold';
+    src: url('../font/roboto/roboto_bold/Roboto-Bold-webfont.woff') format('woff'), url('../font/roboto/roboto_bold/Roboto-Bold-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+

@@ -1,0 +1,100 @@
+{
+  "Ro3SF-ZScaler-Demo": {
+    "configuration": {
+      "config": {
+        "configName": "config",
+        "topScope": [
+          "const path = require('path');",
+          "const webpack = require('webpack');",
+          "\n"
+        ],
+        "webpackOptions": {
+          "mode": "'development'",
+          "entry": {
+            "n": "'./src/js.js'"
+          },
+          "plugins": [
+            "new webpack.ProgressPlugin()"
+          ],
+          "module": {
+            "rules": [
+              {
+                "test": "/\\.(js|jsx)$/",
+                "include": [
+                  "path.resolve(__dirname, 'src')"
+                ],
+                "loader": "'babel-loader'"
+              },
+              {
+                "test": "/.(sa|sc|c)ss$/",
+                "use": [
+                  {
+                    "loader": "\"style-loader\""
+                  },
+                  {
+                    "loader": "\"css-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  },
+                  {
+                    "loader": "\"sass-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "my-webpack-project": {
+    "configuration": {
+      "config": {
+        "configName": "config",
+        "topScope": [
+          "const path = require('path');",
+          "const webpack = require('webpack');",
+          "\n",
+          "/*\n * We've enabled MiniCssExtractPlugin for you. This allows your app to\n * use css modules that will be moved into a separate CSS file instead of inside\n * one of your module entries!\n *\n * https://github.com/webpack-contrib/mini-css-extract-plugin\n *\n */",
+          "const MiniCssExtractPlugin = require('mini-css-extract-plugin');",
+          "\n"
+        ],
+        "webpackOptions": {
+          "mode": "'development'",
+          "plugins": [
+            "new webpack.ProgressPlugin()",
+            "new MiniCssExtractPlugin({ filename:'bundle.css.[contenthash].css' })"
+          ],
+          "module": {
+            "rules": [
+              {
+                "test": "/.(sa|sc|c)ss$/",
+                "use": [
+                  {
+                    "loader": "MiniCssExtractPlugin.loader"
+                  },
+                  {
+                    "loader": "\"css-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  },
+                  {
+                    "loader": "\"sass-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

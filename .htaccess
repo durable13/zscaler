@@ -1,0 +1,7 @@
+
+AuthType Basic
+AuthName "ZScaler demos"
+AuthUserFile /home/210436/.htpasswd
+AuthGroupFile /home/210436/.htgroup
+Require group dev
+Require user ziatour

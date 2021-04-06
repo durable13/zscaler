@@ -1,0 +1,161 @@
+ZIA TOUR PLUGIN
+-----------------------------
+
+USAGE
+-----
+
+Place this script tag anywhere on a page. If this is running in a Drupal or WordPress environment it
+may be necessary to instantiate the script using drupal_add_js or wp_enqueue_script respectively in order
+for it to use the existing jQuery instance.
+
+<script src="lib/js/zia-tour.min.js"></script>
+
+
+MOBILE AND DESKTOP VERSIONS
+---------------------------
+
+The tour defers to a video presentation on mobile devices.
+The video URL can be edited directly in tour-content.htm
+
+
+MARKETO EMAIL CAPTURE
+---------------------
+
+Edit the Marketo cut-and-paste for code directly in tour-content.htm.
+It appears in two places, look for "email-capture" in mobile and desktop nodes.
+
+See jquery.ziatour.js > initEmailCapture() for Marketo specific script handlers within the plugin.
+
+
+CONFIGURATION
+-------------
+
+The tour loads the following files plus an image archive of screen-shots:
+
+	1) zia-tour/lib/js/ziatour.min.js
+
+		The only public function ziaTour() loads the tour and its files.
+		It takes two optional parameters:
+    	cache (boolean, optional) - false to force reloading of all files when editing scripts and CSS
+    	debug (boolean, optional) - true to enable navbar and outline transparent click targets when editing
+
+		Example:
+    	DEV: ziaTour({ cache:false, debug:true });
+    	PRODUCTION: ziaTour({ cache:true, debug:false });
+
+	2) zia-tour/lib/js/jquery.ziatour.min.js
+		 The jQuery tour plugin itself, loaded by ziatour.min.js
+
+	3) https://code.jquery.com/jquery-3.5.1.min.js
+		 A jQuery CDN fallback loaded by ziatour.min.js in the event that jQuery is not already
+		 loaded on the page the tour is running on.
+
+	4) zia-tour/lib/css/zia-tour.min.css (source: zia-tour.css)
+		 Tour interface CSS, loaded by ziatour.min.js
+
+	5) zia-tour/htm/tour-content.htm
+		 Editable HTML content for the individual tour steps (nodes)
+
+	6) zia-tour/img/screens/
+		 A directory containing screen-shot images of various tour steps and states
+		 (i.e. background, hover, and focus)
+
+
+EDITING TOUR CONTENT
+--------------------
+
+Tour content can be edited freely in tour-content.htm. This is a simple HTML file
+structered in two main blocks, #desktop and #mobile. Within these blocks are the
+individual tour nodes. Each node has basic elements like screen (screen-shot),
+overlay, dialog box, marker, tooltip, cta button, back button, etc.
+
+Do not change any of the element IDs. They are used in CSS declarations and also
+for plugin handles.
+
+
+OVERVIEW OF NODE CSS CLASSES
+----------------------------
+
+Node classes:
+	overlay: usually used with a dialog box to mask off the rest of the page
+	easein: node fade in transition
+	dark-color-scheme: adjusts elements like btn-exit, dialog, and marker for dark backgrounds 
+	hide-exit-btn: a script handle that tells the script to hide the main tour exit button on this node 
+	hide-logo: a script handle that tells the script to hide the logo on this node
+
+screen
+  bg: the main screen-shot background, always required
+  hover: optional hover-state image triggered when the user hovers over the click target
+  focus: optional active-state image triggered when the user mouses down on the click target
+
+dialog: basic dialog box in white
+dialog blue: basic dialog box in blue
+dialog graphic-header: basic dialog box with full-bleed margin on image header
+
+marker: plain marker box with orange pointer
+marker small: smaller fixed-height marker box with orange pointer
+
+Orange border for dialog boxes:
+	border-top
+	border-bottom
+	border-left
+	border-right
+
+Orange pointer for dialog boxes and markers:
+	pointer-left-top
+	pointer-top-left
+	pointer-top-right
+	pointer-bot-left
+	pointer-right-top
+	pointer-right-bot
+
+content: required only on nodes that use graphic-header, to maintain content margins on full-bleed container.
+
+cta: call-to-action button style and script handle
+	btn-text
+	arrow
+
+tooltip: style and script handle for tooltip open button and tooltip content
+
+btn-back: back button style and script handle
+
+bg-img: used to position fixed background images in upper right corner of dialog boxes (i.e. 3min tour graphic)
+
+icon: an inline image style for icons when needed to flow with text.
+
+target: transparent click target for tour "next" node action.
+	These are the most liekly thing to need editing when screen-shots are updated.
+	Target CSS positioning can be edited in the DESKTOP NODES and MOBILE NODES section of zia-tour.css
+
+video: style and script handle for YouTube iframe player
+
+Utility classes:
+	nobr: used on <span> to encasulate non-breaking text, esp. hyphenated text
+
+Global elements:
+	logo: main logo position and size
+	btn-exit: main tour exit button (#mobile requires a specific treatment and positioning for this)
+
+Data parameters:
+	data-goto: when present targets btn-back click action to a specific node ID instead of just
+		the previous one. Example data-goto="report-8"
+
+	data-delay-next: when present fowards the tour to the next nore in n seconds.
+		Example data-delay-next="1.5"
+
+	data-youtube-url: tells the tour which YouTube clip to load.
+		Example data-youtube-url="http://www.youtube.com/embed/ydrc489USbM"
+
+
+
+UPDATING SCREEN SHOTS
+---------------------
+
+Anytime sceen-shots are updated some adjusting of the click targets may be needed.
+To make things easier put the interface into DEV mode. Refer to the Configuration section
+for details. This will make the click targets visible so you can adjust their CSS position
+whenever needed to match the new screen-shot.
+
+Edit the 
+
+
