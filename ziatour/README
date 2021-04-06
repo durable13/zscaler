@@ -65,7 +65,7 @@ EDITING TOUR CONTENT
 --------------------
 
 Tour content can be edited freely in tour-content.htm. This is a simple HTML file
-structered in two main blocks, #desktop and #mobile. Within these blocks are the
+structured in two main blocks, #desktop and #mobile. Within these blocks are the
 individual tour nodes. Each node has basic elements like screen (screen-shot),
 overlay, dialog box, marker, tooltip, cta button, back button, etc.
 
