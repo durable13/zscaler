@@ -148,6 +148,14 @@
 	box-shadow: $prop;
 	}
 
+@mixin textShadow($prop) {
+	-webkit-text-shadow: $prop;
+	-ms-text-shadow: $prop;
+	-moz-text-shadow: $prop;
+	-o-text-shadow: $prop;
+	text-shadow: $prop;
+	}
+
 @mixin filter($prop) {
 	-webkit-filter: $prop;
 	filter: $prop;

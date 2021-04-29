@@ -1,8 +1,31 @@
-
-
 /**/
 /*** DESKTOP NODES  ***/
 /**/
+
+#ziatour #intro-1 .dialog.blue {
+	padding-bottom: 2em;
+	width: 60%;
+	display: flex;
+	align-items: center;
+	}
+#ziatour #intro-1 .bg-img {
+	top: -1em;
+	right: 1em;
+	}
+#ziatour #intro-1 .col-2:first-child h2 {
+	margin-top: 1em;
+	}
+#ziatour #intro-1 .col-2:first-child {
+	width: 75% !important;
+	}
+#ziatour #intro-1 .col-2:last-child {
+	width: 25% !important;
+	}
+#ziatour #intro-1 .mktoForm {
+	}
+#ziatour #intro-1 .mktoButton {
+	position: fixed;
+	}
 
 /* Each tooltip here has two animations, one to show it and one to hide it.
    Note the different 'show' timings but all close at the same time.
@@ -10,321 +33,346 @@
    */
 
 #ziatour #intro-2.show .tip1 .shape {
-	@include animationTwo(tooltip-show .5s 1.5s forwards, tooltip-close .5s 14s forwards);
-	}
+	@include animationTwo(tooltip-show 0.5s 1.5s forwards, tooltip-close 0.5s 14s forwards);
+}
+
 #ziatour #intro-2.show .tip2 .shape {
-	@include animationTwo(tooltip-show .5s 3s forwards, tooltip-close .5s 14s forwards);
-	}
+	@include animationTwo(tooltip-show 0.5s 3s forwards, tooltip-close 0.5s 14s forwards);
+}
+
 #ziatour #intro-2.show .tip3 .shape {
-	@include animationTwo(tooltip-show .5s 4.5s forwards, tooltip-close .5s 14s forwards);
-	}
+	@include animationTwo(tooltip-show 0.5s 4.5s forwards, tooltip-close 0.5s 14s forwards);
+}
+
 #ziatour #intro-2.show .tip4 .shape {
-	@include animationTwo(tooltip-show .5s 6s forwards, tooltip-close .5s 14s forwards);
-	}
+	@include animationTwo(tooltip-show 0.5s 6s forwards, tooltip-close 0.5s 14s forwards);
+}
+
 #ziatour #intro-2 .tip1 {
-	top: 5.75%;
-	left: 12%;
-	}
+  top: 8.375%;
+  left: 19%;
+}
+
 #ziatour #intro-2 .tip2 {
-	top: 5.75%;
-	left: 76%;
-	}
+  top: 8.375%;
+  left: 81.5%;
+}
+
 #ziatour #intro-2 .tip3 {
-	top: 66.75%;
-	left: 15.25%;
-	}
+  top: 69.75%;
+  left: 16.75%;
+}
+
 #ziatour #intro-2 .tip4 {
-	top: 66.75%;
-	left: 73%;
-	}
+  top: 69.75%;
+  left: 78.25%;
+}
 
 #ziatour #config-1 .marker {
-	top: 14.75%;
-	left: 6.75%;
-	width: 22em;
-	width: 29%;
-	transform: none;
-	}
+  top: 19.5%;
+  left: 7%;
+  width: 22em;
+  width: 29%;
+	@include transform(none);
+}
+
 #ziatour #config-1 .target {
-	top: 17.5%;
-	left: 0;
-	height: 6.6%;
-	width: 3.62%;
-	}
+  top: 22.25%;
+  left: 0;
+  height: 6.6%;
+  width: 4%;
+}
 
 #ziatour #config-2 .marker {
-	top: 1%;
-	left: 24%;
-	width: 23%;
-	}
-#ziatour #config-2 .target {
-	top: 5.5%;
-	left: 12.5%;
-	height: 2.5%;
-	width: 8.5%;
-	}
+  top: 2.25%;
+  left: 27.25%;
+  width: 23%;
+}
 
-#ziatour #config-3 .dialog { 
-	width: 40%;
-	}
+#ziatour #config-2 .target {
+  top: 7.125%;
+  left: 15.25%;
+  height: 2.5%;
+  width: 8.5%;
+}
+
+#ziatour #config-3 .dialog {
+  width: 40%;
+}
+
 #ziatour #config-2.overlay:before {
-	width: 3.62%;
-	right: auto;
-	}
+  width: 4.125%;
+  right: auto;
+}
 
 #ziatour #config-4 .marker {
-	top: 47%;
-	left: 4.25%;
-	}
+  top: 52%;
+  left: 3.75%;
+}
+
 #ziatour #config-4 .target {
-	top: 67%;
-	width: 4%;
-	left: 5.5%;
-	height: 3%;
-	}
+  top: 75.5%;
+  width: 3.25%;
+  left: 5.5%;
+  height: 4%;
+}
+
 /* split overlay */
 #ziatour #config-4.overlay:before {
-	bottom: 40%;
-	@include boxShadow(0 0 .5em .5em rgba(0,0,0,.7));
-	}
+  bottom: 32%;
+	@include boxShadow(0 0 0.5em 0.5em rgba(0, 0, 0, 0.7));
+}
+
 #ziatour #config-4.overlay:after {
-	top: 72.5%;
-	display: block;
-	@include boxShadow(0 0 .5em .5em rgba(0,0,0,.7));
-	}
+  top: 83%;
+  display: block;
+	@include boxShadow(0 0 0.5em 0.5em rgba(0, 0, 0, 0.7));
+}
 
 #ziatour #config-5 .dialog {
-	width: 40%;
-	}
+  width: 40%;
+}
 
 #ziatour #config-6 .marker {
-	top: 21%;
-	left: 6.25%;
-	width: 24%;
-	@include transform(none); /* dialogs are centered by default */
-	}
+  top: 23%;
+  left: 6.25%;
+  width: 24%;
+	@include transform(none);
+  /* dialogs are centered by default */
+}
+
 #ziatour #config-6 .target {
-	left: 4.75%;
-	height: 3%;
-	width: 9%;
-	top: 12%;
-	}
+  left: 4.75%;
+  height: 3%;
+  width: 10%;
+  top: 14.5%;
+}
 
 #ziatour #config-7 .marker {
-	top: 46.25%;
-	left: 4.5%;
-	width: 28%;
-	}
+  top: 52.75%;
+  left: 3%;
+  width: 28%;
+}
+
 #ziatour #config-7 .target {
-	top: 83.25%;
-	height: 3%;
-	left: 36.25%;
-	width: 4.5%;
-	}
+  top: 89.125%;
+  height: 4%;
+  left: 35%;
+  width: 4.5%;
+}
 
 #ziatour #report-1 .marker {
-	top: 8%;
+  top: 11.75%;
   left: 7%;
-	}
+}
+
 #ziatour #report-1 .target {
-	top: 10.75%;
-	left: 0;
-	height: 6.5%;
-	width: 3.62%;
-	}
+  top: 14.75%;
+  left: 0;
+  height: 6.5%;
+  width: 3.62%;
+}
+
 #ziatour #report-1.overlay:before {
-	left: 3.62%;
-	}
+  left: 3.75%;
+}
 
 #ziatour #report-3 .marker {
-	top: 10%;
-	left: 11%;
-	width: 26%;
-	}
+  top: 13%;
+  right: 1.5%;
+  width: 26%;
+}
+
 #ziatour #report-3 .target {
-	top: 1%;
-	left: 11.5%;
-	height: 3.25%;
-	width: 5%;
-	}
+  top: 1.75%;
+  right: .75%;
+  height: 4.25%;
+  width: 7%;
+}
 
 #ziatour #report-4 .marker {
-	top: 49.5%;
-	left: 10%;
-	width: 26%;
-	}
+  top: 51.5%;
+  left: 10%;
+  width: 26%;
+}
+
 #ziatour #report-4 .target {
-	top: 53.5%;
-	left: 40%;
-	width: 4.75%;
-	height: 4.5%;
-	}
+  top: 55.5%;
+  left: 40%;
+  width: 4.5%;
+  height: 4.5%;
+}
 
 #ziatour #report-5 .marker {
-	top: 13.5%;
-	right: 1.25%;
-	width: 24%;
-	}
+  top: 17.5%;
+  right: 4%;
+  width: 24%;
+}
+
 #ziatour #report-5 .target {
-	top: 4%;
-	left: 94%;
-	height: 4%;
-	width: 5.75%;
-	}
+  top: 7%;
+  right: 4.5%;
+  height: 4%;
+  width: 5.5%;
+}
 
 #ziatour #report-6 .marker {
-	top: 18%;
-	left: 12%;
-	width: 24%;
-	}
+  top: 20.5%;
+  left: 12%;
+  width: 24%;
+}
+
 #ziatour #report-6 .target {
-	top: 41%;
-	left: 40.5%;
-	height: 3%;
-	width: 12.5%;
-	}
+  top: 43%;
+  left: 40.75%;
+  height: 3%;
+  width: 12.5%;
+}
 
 #ziatour #report-7 .marker {
-	top: 18%;
-	left: 12%;
-	width: 24%;
-	}
+  top: 20.5%;
+  left: 12%;
+  width: 24%;
+}
+
 #ziatour #report-7 .target {
-	top: 49.75%;
-	left: 41%;
-	height: 2.5%;
-	width: 14%;
-	}
+  top: 52.5%;
+  left: 41%;
+  height: 2.5%;
+  width: 15%;
+}
+
 #ziatour #report-7 .target.focus {
-	height: 18.75%;
-	width: 15%;
-	}
+  height: 18.75%;
+  width: 15%;
+}
 
 #ziatour #report-8 .marker {
-	top: 42%;
-	left: 14%;
-	}
-#ziatour #report-8 .target {
-	top: 46.75%;
-	left: 40.5%;
-	height: 3%;
-	width: 12.5%;
-	}
+  top: 45.5%;
+  left: 14%;
+}
 
-#ziatour #report-8a .marker {
-	top: 42%;
-	left: 14%;
-	}
-#ziatour #report-8a .target {
-	top: 52%;
-	left: 41%;
-	height: 2.25%;
-	width: 11.5%;
-	}
+#ziatour #report-8 .target {
+  top: 49.75%;
+  left: 41%;
+  height: 3%;
+  width: 12%;
+}
 
 #ziatour #report-9 .marker {
-	top: 49.25%;
-	left: 14%;
-	}
+  top: 45.5%;
+  left: 14%;
+}
+
 #ziatour #report-9 .target {
- 	top: 53.5%;
-	left: 47.825%;
-	height: 3.5%;
-	width: 3.5%;
-	}
+  top: 55%;
+  left: 41%;
+  height: 2.25%;
+  width: 12%;
+}
 
 #ziatour #report-10 .marker {
-	top: 58.75%;
-	left: 14%;
-	}
-#ziatour #report-10 .target {
-	top: 63.4%;
-	left: 40.5%;
-	height: 3%;
-	width: 12.5%;
-	}
+  top: 52.5%;
+  left: 14%;
+}
 
-#ziatour #report-10a .marker {
-	top: 58.75%;
-	left: 14%;
-	}
-#ziatour #report-10a .target {
-	top: 75%;
-	left: 41%;
-	height: 2.25%;
-	width: 14%;
-	}
+#ziatour #report-10 .target {
+  top: 56.5%;
+  left: 48%;
+  height: 4.125%;
+  width: 3.75%;
+}
 
 #ziatour #report-11 .marker {
-	top: 74.25%;
-	left: 14%;
-	}
+  top: 62%;
+  left: 14%;
+}
+
 #ziatour #report-11 .target {
-	top: 79%;
-	left: 41.5%;
-	height: 2.5%;
-	width: 13%;
-	}
+  top: 66%;
+  left: 40.5%;
+  height: 4%;
+  width: 12.5%;
+}
 
 #ziatour #report-12 .marker {
-	top: 74.25%;
-	left: 14%;
-	}
+  top: 73.5%;
+  left: 14%;
+}
+
 #ziatour #report-12 .target {
-	top: 92%;
-	left: 41.5%;
-	height: 3.5%;
-	width: 4.75%;
-	}
+  top: 78%;
+  left: 41%;
+  height: 2.75%;
+  width: 15%;
+}
 
 #ziatour #report-13 .marker {
-	top: 73.5%;
-	left: 14%;
-	}
+  top: 73.5%;
+  left: 14%;
+}
+
 #ziatour #report-13 .target {
-	top: 77.5%;
-	left: 39.75%;
-	height: 4.25%;
-	width: 4.5%;
-	}
+  top: 95%;
+  left: 41.5%;
+  height: 3.5%;
+  width: 4%;
+}
+
+#ziatour #report-14 .marker {
+  top: 73.5%;
+  left: 14%;
+}
 
 #ziatour #report-14 .target {
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	}
+  top: 77.5%;
+  left: 39.75%;
+  height: 4%;
+  width: 4%;
+}
+
+#ziatour #report-15 .target {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 #ziatour #dash-1 .dialog {
-	right: 40px;
+  right: 2em;
+	top: 45%;
 	left: auto;
-	top: 50%;
-	@include transform(translateY(-50%)); /* vertical center */
-	}
+	width: 30%;
+	@include transform(translateY(-50%));
+  /* vertical center */
+}
 #ziatour #dash-1 .tip1 {
-	top: 5.5%;
-	left: 12%;
+	top: 23.25%;
+	left: 9.75%;
 	}
 #ziatour #dash-1 .tip2 {
-	top: 5.5%;
-	left: 42.5%;
+	top: 23.25%;
+  left: 39.5%;
 	}
+
 /*	Each tooltip here has two animations, one to show it and one to hide it.
 		Note the different 'show' timings but both close at the same time.
 		Note also that this the requires 'animationTwo' mixin to accomodate the two animation declaration.
 		*/
 #ziatour #dash-1.show .tip1 .shape {
-	@include animationTwo(tooltip-show .5s 1.5s forwards, tooltip-close .5s 14s forwards);
-	}
+	@include animationTwo(tooltip-show 0.5s 1.5s forwards, tooltip-close 0.5s 14s forwards);
+}
+
 #ziatour #dash-1.show .tip2 .shape {
-	@include animationTwo(tooltip-show .5s 3s forwards, tooltip-close .5s 14s forwards);
-	}
+	@include animationTwo(tooltip-show 0.5s 3s forwards, tooltip-close 0.5s 14s forwards);
+}
 
 #ziatour #closing-1 .dialog {
-	padding-top: 3.5em;
-	width: 32em;
-	overflow: hidden;
-	}
+  padding-top: 3.5em;
+  width: 32em;
+  overflow: hidden;
+}
+
 
 
 /**/
@@ -332,55 +380,111 @@
 /**/
 
 #ziatour #m-intro .dialog {
-	padding-top: 3.5em;
-	width: 32em;
-	overflow: hidden;
+  padding-top: 3.5em;
+  width: 32em;
+  overflow: hidden;
+}
+#ziatour #m-intro h2 {
+	width: 50%;
+	}
+#ziatour #m-intro .dialog.blue {
+	padding-bottom: 0;
+	}
+#ziatour #m-intro .bg-img {
+	top: -1em;
+	right: 1.5em;
+	}
+#ziatour #m-intro .col-2:first-child h2 {
+	margin-top: 2em;
+  font-size: calc(30px + 6 * ((100vw - 1280px) / 480)) !important;
+	}
+#ziatour #m-intro .col-2:first-child {
+	width: 70% !important;
+	}
+#ziatour #m-intro .col-2:last-child {
+	display: flex;
+	align-items: center;
+	width: 30% !important;
+	}
+#ziatour #m-intro .mktoButton {
+	bottom: 0 !important;
+	right: 0 !important;
+	position: fixed;
+	font-size: 1.5em;
 	}
 
 #ziatour #m-video {
-	background-color: $blue;
-	background: linear-gradient(212deg, $blue 10%, #0A658C 90%);
-	}
+  background-color: #059BD8;
+  background: linear-gradient(212deg, #059BD8 10%, #0A658C 90%);
+}
+
 #ziatour #m-video iframe {
-	height: 100%;
-	width: 100%;
-	z-index: 0;
-	position: relative;
-	}
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  position: relative;
+}
 
 #ziatour #m-closing .dialog {
-	padding-top: 3.5em;
-	width: 32em;
-	overflow: hidden;
-	}
-
+  padding-top: 3.5em;
+  width: 32em;
+  overflow: hidden;
+}
 
 
 /* Landscape and Portrait orientation */
 
-@media only screen and (max-device-width: 480px) and (orientation: portrait),
-	only screen and (max-device-width: 961px) and (orientation: landscape) {
-
-	#ziatour #m-video .btn-exit {
-		@include transition(opacity .75s);
+@media only screen and (max-device-width: 480px) and (orientation: portrait), only screen and (max-device-width: 961px) and (orientation: landscape) {
+  #ziatour {
+    font-size: 18px;
+		}
+  #ziatour #m-video .btn-exit {
+		@include transition(opacity 0.75s);
+  }
+	.mktoForm .mktoFieldWrap {
+    font-size: 1.5em !important;
+		margin-bottom: .5em;
+		}
+	#ziatour input,
+	#ziatour select,
+	#ziatour textarea {
+    font-size: inherit !important;
+		}
+	#ziatour button {
+    font-size: 1.625em !important;
+		}
+	.mktoError {
+		bottom: -3.25em !important;
 		}
 }
 
 /* Portrait orientation */
-@media only screen and (max-device-width: 480px) and (orientation: portrait) {
 
-	/* small format pointer-only CTA button for mobile portrait mode */
-	#ziatour #m-intro .cta {
-		min-width: 3em;
-    padding: 0 1em 0 0;
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+  /* small format pointer-only CTA button for mobile portrait mode */
+
+  #ziatour #m-video iframe {
+    z-index: 0;
+  }
+	#ziatour #m-intro h2 {
+		width: 100%;
 		}
-	#ziatour #m-video iframe {
-		z-index: 0;
+	#ziatour #m-intro .dialog.blue {
+		padding-bottom: 3em;
 		}
-	/* YouTube player sstrangely ignores z-index in portrait mode but this works if it's in the left corner of the screen. */
-	#ziatour #m-video .btn-exit {
-		right: auto;
-		left: 1.25em;
-		}
+
+  /* YouTube player strangely ignores z-index in portrait mode but this works if it's in the left corner of the screen. */
+  #ziatour #m-video .btn-exit {
+    right: auto;
+    left: 1.25em;
+  }
+
+	#ziatour #m-intro .col-2:first-child,
+	#ziatour #m-intro .col-2:last-child {
+		width: 100% !important;
+		float: none !important;
+	}
+
 }
 
+/*** END NODES  ***/

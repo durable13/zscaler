@@ -38,7 +38,11 @@ module.exports = function(grunt) {
       dist: {
       	options: {
         	mangle: false,
-					beautify: true
+        	compress: false,
+					preserveComments: 'all',
+					beautify: {
+						beautify: true
+					}
 				},
         files: [{
         	expand: true,
@@ -65,34 +69,6 @@ module.exports = function(grunt) {
         }]
       },
     },
-    minifyHtml: {
-			dist: {
-				options: {
-					removeComments: true,
-					collapseWhitespace: true,
-					removeAttributeQuotes: true,
-					useShortDoctype: true,
-					continueOnParseError: true
-				},
-        files: [{
-        	expand: true,
-        	src: ['*.htm','*.html'],
-        	dest: 'dist/htm/',
-        	dest: '../ziatour/html/',
-        	cwd: 'src/htm/'
-        }]
-			}
-		},
-		git: {
-			task: {
-				options: {
-					cwd: "src",
-				},
-				files: {
-					src: ['src/**'],
-				}
-			}
-		},
     watch: {
       sass: {
         tasks: ['sass'],
@@ -101,18 +77,12 @@ module.exports = function(grunt) {
       js: {
         tasks: ['uglify'],
         files: ['**/*.js']
-      },
-      htm: {
-        tasks: ['minifyHtml'],
-        files: '**/*.htm'
-			}
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-minify-html');
-  grunt.loadNpmTasks('grunt-git');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['watch']);

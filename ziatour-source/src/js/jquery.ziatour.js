@@ -2,16 +2,13 @@
    Author: Erich Richter <studio@erichrichter.com>
    Date: 2021.03.23
    */
-
+ 
 !function($){
 
 	$.fn.ziatour = function(opt){
 
 		defaults = {
-			debug: false, // Set to true to enable the debugging navbar and show visible outlines on click targets.
-			formId: 'email-capture', // any unique form ID
-			emailFieldName: 'email', // Marketo form field name
-			formError: 'Please enter a valid business email.' // the placeholder text that shows if a user make an invalid entry
+			debug: false // Set to true to enable the debugging navbar and show visible outlines on click targets.
 		},
 		opt = $.extend(defaults, opt);
 
@@ -26,16 +23,16 @@
 			/* goto() is the tour workhorse. It handles the node/page changes and triggers various node related actions. */
 			goto = function(i){
 
-				var $node, curNode;
 
-				if( i>-1 && i<$nodes.length) {
+				var $node, curNode;
+				if( i >= 0 && i<$nodes.length) {
 
 					// Stop here if the tour requires email validation and the user hasn't submitted the form yet.
-					if( i > $this.data('gatedStartNode') && $this.data('emailCaptured') == false ) {
+					if( i >= $this.data('gatedStartNode') && $this.data('isLoggedIn') == false ) {
 						return;
 					}
 
-					curNode = (!isNaN(i) && i >= 0) ? i : $this.data('curNode');
+					curNode = !isNaN(i) ? i : 1;
 					$this.data('curNode',curNode);
 
 					$node = $nodes.eq(i);
@@ -128,65 +125,60 @@
 			},
 
 			// Process Marketo script response here.
-			initEmailCapture = function(){
+			initLoginForm = function(){
 
-				$this.data('emailCaptured',true); // Default is true, in case there is no capture form.
-				var $emailCaptureForm = $nodes.eq(0).find('#'+opt.formId+' form');
+				$this.data('isLoggedIn',true); // Default is true in case there is no capture form in use.
 
-				if( $emailCaptureForm.length ) {
+				var
+					$loginContainer = $('.login-container'),
+					$primaryLoginContainer = $loginContainer.eq(0),
+					$form = $primaryLoginContainer.find('form');
 
-					// We are doing an email capture so set emailCaptured to false. A successful login will reset this to true.
-					$this.data('emailCaptured',false);
+				if($form.length){
 
-					/*	Locate the node this form is in and set gatedStartNode to the NEXT node index.
-							That's where the gated section fo the tour begins.
-							This value is used by goto() to determine whether to proceed or not.
-							*/
-					$this.data('gatedStartNode', $emailCaptureForm.parents('.node').index()+1 );
+					// Initialize the Marketo form.
+					MktoForms2.loadForm('//info.zscaler.com', '306-ZEJ-256', 4776, function(form){
 
-					var
-						$emailField = $emailCaptureForm.find('[name='+opt.emailFieldName+']'),
-						placeholderText = $emailField.length? $emailField.attr('placeholder') : opt.formError,
-						aniTimer = 0;
 
-					if( $emailField.length ) {
-						$emailField.on('mouseenter', function(){
-							$emailField.removeClass('flash-field');
-							clearTimeout(aniTimer);
-						});
-					}
+						// Change the submit button text to 'continue'.
+						$form.find('.mktoButton[type=submit]').html('continue');
 
-					$emailCaptureForm.on('submit',function(e){
+						// Set the gatedStartNode to the node immediately following whatever node the Marketo form is on.
+						// This tells goto() which nodes are locked prior to submitting the form.
 
-						e.preventDefault();
-
-						// TEMPORARY poor-man's validation. REMOVE when Marketo is plugged in.
-						if( $emailField.val().length > 5 && $emailField.val().indexOf('@')>0 ) $this.data('emailCaptured',true);
-
-						if( $this.data('emailCaptured') ) {
-							goto(1);
+						if(!$this.data('isMobile')) {
+							$this.data('gatedStartNode', $primaryLoginContainer.parents('.node').index()+1 );
 						}
 						else {
+							var $mobileLoginContainer = $loginContainer.eq(1);
+							if($mobileLoginContainer.length){
 
-							// Parse Marketo response into a short error string.
-							var errStr = opt.formError;
-							if( $emailField.length ) {
+								$this.data('gatedStartNode', $mobileLoginContainer.parents('.node').index()+1 );
 
-								// Add CSS animation to get the user's attention.
-								$emailField.addClass('flash-field');
-								var
-									aniDuration = parseFloat($emailField.css('animation-duration')),
-									aniDelay = parseFloat($emailField.css('animation-delay')),
-									aniCount = parseInt($emailField.css('animation-iteration-count')),
-									flashAniDurationMs = ((aniDuration * aniCount) + aniDelay) * 1000 + 300;
-
-								aniTimer = setTimeout( function(){
-									$emailField.removeClass('flash-field');
-									$emailField.val('');
-								}, flashAniDurationMs);
+								// Move the form to its mobile node.
+								$mobileLoginContainer.append($form);
 							}
 						}
-						return false;
+
+						// We are doing an email capture so set emailCaptured to false. A successful login will reset this to true.
+						$this.data('isLoggedIn',false);
+
+						form.onSuccess(function(values, followUpUrl) {
+							$this.data('isLoggedIn',true);
+							goto($this.data('gatedStartNode'));
+							return false;
+						});
+
+						// Override form validation in debug mode.
+						if(opt.debug) {
+							$form.on('submit',function(e){
+								e.preventDefault();
+								$this.data('isLoggedIn',true);
+								goto($this.data('gatedStartNode'));
+								return false;
+							});
+						}
+
 					});
 				}
 			},
@@ -313,8 +305,6 @@
 							src = setYouTubePrivacyEnhancedMode(src); // PrivacyEnhancedMode removes 'watch later' and 'share' links. 
 							src = urlAddParams(src,params);
 
-							// console.log('params: '+ JSON.stringify(params));
-
 							var ytplayer = new YT.Player(playerId, {
 								videoId: videoId,
 								wmode: 'opaque',
@@ -355,14 +345,11 @@
 			/* Loop over nodes and initialize click and hover states for various node elements. */
 			initNodes = function(){
 
-				var
-					$node,
-					isMobile = checkMobile();
-
 				$this.find('#desktop').addClass('nodes');
 				$this.find('#mobile').addClass('nodes');
-				$nodes = isMobile ? $this.find('#mobile > div') : $this.find('#desktop > div');
+				$nodes = $this.data('isMobile') ? $this.find('#mobile > div') : $this.find('#desktop > div');
 
+				var $node;
 				$nodes.each( function(i){
 
 					$node = $nodes.eq(i);
@@ -374,22 +361,12 @@
 
 					$node.find('.target').on('click', function(){
 						$node = $(this).parents('.node');
-						$node.removeClass('hover');
 						$node.removeClass('focus');
 						next(i);
-					});
-					$node.find('.btn-back').on('click', function(){
-						var goToId = $(this).data('goto');
-						if( goToId && $nodes.siblings('#'+goToId).length ) {
-							var idx = $nodes.siblings('#'+goToId).index();
-							i = idx > 0 ? idx+1 : i;
-						}
-						prev(i);
 					});
 					$node.find('.target').hover(
 						function() {
 							$node = $(this).parents('.node');
-							$node.removeClass('focus');
 							$node.addClass('hover');
 						}, function() {
 							$node = $(this).parents('.node');
@@ -399,17 +376,30 @@
 					$node.find('.target').on('mousedown',
 						function() {
 							$node = $(this).parents('.node');
-							$node.removeClass('hover');
-							$node.addClass('focus');
+							if($node.find('img.focus').length){
+								$node.removeClass('hover');
+								$node.addClass('focus');
+							}
 						}
 					);
+					$node.find('.btn-back').on('click', function(){
+						var goToId = $(this).data('goto');
+						if( goToId && goToId!='undefined' && $nodes.siblings('#'+goToId).length ) {
+							var idx = $nodes.siblings('#'+goToId).index();
+							i = idx > 0 ? idx+1 : i;
+						}
+						prev(i);
+					});
 				});
 			},
 
 			/* Show the first node. */
 			startTour = function(){
+
 				var arrImg = listImages();
-				if( arrImg.length ) {
+
+				// If we are reloading images wait until they are all laoded before starting tour.
+				if(arrImg.length) {
 					preloadImgs(arrImg, function(){
 						goto(0);
 					});
@@ -465,14 +455,16 @@
  				/* curNode tracks which node we are currently on. */
 				$this.data('curNode',0);
 
+ 				/* isMobile, A global to help manage responsive interface. */
+				$this.data('isMobile',checkMobile());
+
  				/* nodeTimer is used to cancel already running node/page timed transitions (if present) */
 				$this.data('nodeTimer',0);
 
  				/*	gatedStartNode tells the tour which nodes are gated/locked prior to email capture.
-						initEmailCapture looks for the email signup form abd sets this number to the node index
+						initLoginForm looks for the email signup form and sets this number to the node index
 						immediately AFTER the email capture form (eg: everything after that node is gated).
-						If this is never set by initEmailCapture to a number higher than 0 it means nodes
-						are not gated or emailcapture is not being used.
+						If emailcapture is not being used this does nothing.
 						*/
 				$this.data('gatedStartNode',0);
 
@@ -481,7 +473,7 @@
 				initNodes();
 
 				/* Optional tour login/gating, processes the Marketo form callback. */
-				initEmailCapture();
+				initLoginForm();
 
 				/* Enable browser back button functionality. */
 				initBackButtonSafe();
@@ -505,6 +497,6 @@
 		init();
 	}
 	return this;
-
 }(jQuery);
+
 

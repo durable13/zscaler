@@ -1,4 +1,6 @@
 
+/***** GLOBAL STYLES *****/
+
 #ziatour {
   height: 100%;
   width: 100%;
@@ -23,6 +25,22 @@
 .zia-loaded .ziatour-existing-content {
 	@include opacity(0);
 	position: absolute;
+	}
+
+#ziatour .row {
+	overflow: hidden;
+	position: relative;
+	}
+#ziatour .col-2 {
+	float: left;
+	width: 50% !important;
+	position: relative;
+	}
+#ziatour .col-2:first-child {
+	padding-right: .75em;
+	}
+#ziatour .col-2:last-child {
+	padding-left: .75em;
 	}
 
 #ziatour .logo {
@@ -228,9 +246,6 @@
 	@include transform(translate(-50%,-50%));
   position: absolute;
 	}
-zzz#ziatour .overlay .dialog {
-	@include boxShadow(none);
-	}
 #ziatour .dark-color-scheme .dialog,
 #ziatour .dark-color-scheme .marker {
 	@include boxShadow(none);
@@ -352,9 +367,9 @@ zzz#ziatour .overlay .dialog {
 #ziatour .pointer-right-bot:before {
 	width: 0;
 	height: 0;
-	border-top: 2.765em solid transparent;
+	border-top: 2.75em solid transparent;
 	border-left: 2.25em solid $orange;
-	border-bottom: 2.765em solid transparent;
+	border-bottom: 2.75em solid transparent;
 	content: '';
 	position: absolute;
 	}
@@ -379,6 +394,8 @@ zzz#ziatour .overlay .dialog {
 	}
 #ziatour .pointer-left-top:before {
 	top: .057em;
+	left: -2.33em;
+	top: .061em;
 	left: -2.33em;
 	@include transform(rotate(180deg));
 	}
@@ -484,119 +501,172 @@ zzz#ziatour .overlay .dialog {
 	100% { @include opacity(0); visibility: hidden; }
 	}
 
-#ziatour #email-capture {
+
+
+
+
+/***** LOGIN FORM AND MARKETO *****/
+
+#ziatour .login-container {
+  width: 100%;
+  height: 2.75em;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.mktoForm,
+#ziatour .login-container form {
 	width: 100%;
-	height: 2.75em;
-	left: 0;
-	bottom: 0;
-	position: absolute;
-	}
-#ziatour #email-capture form {
-	height: 100%;
-	background-color: $white;
+	background-color: transparent !important;
 	@include borderRadius(0 0 3px 3px);
-	}
-#ziatour #email-capture input[name=email] {
-	font-family: $serif;
-	height: 94%;
-	width: 100%;
-	padding: 0 8.75em 0 2em;
-	margin: 0;
-	outline: 0;
-	border: none;
-	color: $med-black;
-	}
-#ziatour #email-capture input[name=email].flash-field {
-	color: inherit;
-	background-color: $white !important;
-	@include boxShadow(inset 0 0 10px $blue);
-	@include animation(flash .9s 1 forwards);
-	}
-@-webkit-keyframes flash {
-	0% { color: transparent; }
-	20% { color: transparent; }
-	20.1% { color: $dark-gray; }
-	100% { color: $dark-gray; }
-	}
-@-moz-keyframes flash {
-	0% { color: transparent; }
-	20% { color: transparent; }
-	20.1% { color: $dark-gray; }
-	100% { color: $dark-gray; }
-	}
-@-ms-keyframes flash {
-	0% { color: transparent; }
-	20% { color: transparent; }
-	20.1% { color: $dark-gray; }
-	100% { color: $dark-gray; }
-	}
-@keyframes flash {
-	0% { color: transparent; }
-	20% { color: transparent; }
-	20.1% { color: $dark-gray; }
-	100% { color: $dark-gray; }
-	}
-#ziatour #email-capture input:-internal-autofill-selected {
+}
+
+.mktoForm .mktoField,
+#ziatour .login-container input[name=email] {
+  height: 94%;
+  width: 100%;
+  padding: 0 8.75em 0 2em !important;
+  margin: 0;
+  outline: 0;
+  border: none !important;
+	color: $med-black !important;
+}
+
+#ziatour .login-container input:-internal-autofill-selected {
 	background: $white !important;
-	}
-#ziatour #email-capture input:-webkit-autofill,
-#ziatour #email-capture input:-webkit-autofill:hover, 
-#ziatour #email-capture input:-webkit-autofill:focus {
-	border: none;
+}
+
+#ziatour .login-container input:-webkit-autofill,
+#ziatour .login-container input:-webkit-autofill:hover,
+#ziatour .login-container input:-webkit-autofill:focus {
+  border: none;
 	-webkit-text-fill-color: $med-black;
 	@include boxShadow(0 0 0 1000px $white inset);
 	@include transition(background-color 5000s ease-in-out 0s);
 }
 
-#ziatour .cta {
-	height: 2.75em;
-	min-width: 8em;
+#ziatour .login-container {
+  height: auto;
+  bottom: auto;
+  position: relative;
+	}
+
+.mktoForm {
+	margin-top: 1.5em;
+  height: auto;
+  width: 100% !important;
 	color: $white;
-	right: 0;
-	bottom: 0;
-	background-color: $orange;
-	cursor: pointer;
-	padding: .75em 1em .875em .75em;
-	z-index: 1;
+	background-color: transparent;
+  position: relative;
+	}
+.mktoForm .mktoButtonRow {
+  width: 100%;
+	}
+.mktoForm .mktoLabel,
+.mktoForm .mktoGutter,
+.mktoForm .mktoOffset {
+	display: none !important;
+	}
+.mktoForm .mktoFormCol,
+.mktoForm .mktoFieldWrap,
+.mktoForm .mktoField {
+	float: none !important;
+	width: 100% !important;
+	}
+.mktoForm .mktoFormCol {
+	min-height: 0 !important;
+	margin-bottom: 0 !important;
+	}
+.mktoForm .mktoRadioList,
+.mktoForm .mktoCheckboxList {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	}
+.mktoForm .mktoField {
+	font-size: calc(16px + 6 * ((100vw - 1280px) / 480)) !important;
+	margin-bottom: calc(16px + 6 * ((100vw - 1280px) / 480)) !important;
+	padding: .25em .5em .125rem !important;
+	height: 1.625em !important;
+	}
+.mktoForm .mktoButtonWrap {
+	width: 100%;
+	display: block;
+	margin-left: 0 !important;
+	}
+.mktoForm .mktoButton[type=submit] {
+  background-image: none !important;
+  background-color: $orange !important;
+  color: $white !important;
+	}
+.mktoForm .mktoErrorMsg {
+	color: $orange !important;
+	border: 1px solid $orange !important;
+	background-color: $ivory !important;
+  background-image: none !important;
+	@include boxShadow( rgba(0,0,0,.65) 0 2px 7px !important);
+	@include textShadow(none !important);
+	}
+.mktoForm .mktoErrorArrow {
+	background-color: $orange !important;
+	border: 1px solid $orange !important;
+	}
+
+#ziatour .cta,
+.mktoForm .mktoButton[type=submit] {
+  height: 2.75em;
+  min-width: 8em;
+  color: $white;
+  background-color: $orange;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  padding: .75em 1em .875em .75em !important;
+  z-index: 1;
 	@include borderRadius(0 0 3px);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: absolute;
-	}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
 #ziatour a.cta {
-	height: auto;
+  height: auto;
 	color: $white;
-	text-decoration: none;
-	}
-#ziatour .cta:before {
-	top: 0;
-	left: -1.4em;
-	width: 2.75em;
-	height: 2.75em;
-	height: 100%;
+  text-decoration: none;
+}
+
+#ziatour .cta:before,
+.mktoForm .mktoButton[type=submit]:before {
+  top: 0;
+  left: -1.4em;
+  width: 2.75em;
+  height: 2.75em;
+  height: 100%;
 	background-color: $orange;
 	@include clipPath(polygon(50% 0, 100% 0, 100% 100%, 0% 100%));
-	content: '';
-	z-index: -1;
-	position: absolute;
-	}
-#ziatour .cta .arrow {
-	margin-left: .75rem;
-	margin-bottom: -.078125em;
-	width: 0;
-	height: 0;
+  content: '';
+  z-index: -1;
+  position: absolute;
+}
+
+#ziatour .cta .arrow,
+.mktoForm .mktoButton[type=submit]:after {
+  margin-left: .75rem;
+  margin-bottom: -.078125em;
+  width: 0;
+  height: 0;
 	border-top: .375em solid transparent;
 	border-left: .5625em solid $white;
 	border-bottom: .375em solid transparent;
 	@include transition(right .2s ease-in-out);
-	display: inline-block;
-	content: '';
-	position: relative;
-	}
-#ziatour .cta.on .arrow {
-	right: 1.5em;
-	}
+  display: inline-block;
+  content: '';
+  position: relative;
+}
+
+/***** END LOGIN FORM AND MARKETO *****/
+
 
 #ziatour a.btn-back {
 	font-size: .9375em;
@@ -671,122 +741,131 @@ zzz#ziatour .overlay .dialog {
 
 /* MOBILE AND SMALL DEVICES */
 
-@media only screen and (max-device-width: 480px) and (orientation: portrait),
-	only screen and (max-device-width: 961px) and (orientation: landscape) {
+@media only screen and (max-device-width: 480px) and (orientation: portrait), only screen and (max-device-width: 961px) and (orientation: landscape) {
+  body {
+    height: 100% !important;
+    font-size: 18px !important;
+  }
 
-	body {
-		height: 100% !important;
-		font-size: 16px !important;
-		}
-	#ziatour #desktop {
-		display: none !important;
-		}
-	#ziatour #mobile {
-		display: block !important;
-		}
-	#ziatour #mobile div.dialog {
-		width: 100%;
-		min-height: 100%;
-		padding: 8% 32% 4em 4em;
-		display: flex;
-		flex-direction: row;
-		}
-	#ziatour #mobile div.dialog .content {
-		align-self: center;
-		}
-	body #ziatour .logo {
-		top: 6%;
-		left: 2em;
-		width: 22%;
+  #ziatour #desktop {
+    display: none !important;
+  }
+
+  #ziatour #mobile {
+    display: block !important;
+  }
+
+  #ziatour #mobile div.dialog {
+    width: 100%;
+    min-height: 100%;
+    padding: 0 3em;
+    display: flex;
+    flex-direction: row;
+  }
+
+  #ziatour #mobile div.dialog .content {
+    align-self: center;
+  }
+
+  body #ziatour .logo {
+    top: 6%;
+    left: 2em;
+    width: 22%;
     z-index: 1;
-		}
-	body #ziatour .logo img {
-		display: block;
-		}
-	body #ziatour .logo:after {
-		display: none;
-		}
-	#ziatour #mobile .dialog .bg-img {
-		width: 32%;
-		}
-	#ziatour #mobile #email-capture {
+  }
+
+  body #ziatour .logo img {
+    display: block;
+  }
+
+  body #ziatour .logo:after {
+    display: none;
+  }
+
+  #ziatour #mobile .dialog .bg-img {
+    width: 40%;
+  }
+
+  zzz#ziatour #mobile input[name=email] {
+    padding: 0 9.5em 0 4em;
+  }
+
+  #ziatour #mobile .cta {
     height: 3.5em;
-		}
-	#ziatour #mobile input[name=email] {
-		padding: 0 9.5em 0 4em;
-		}
-	#ziatour #mobile .cta {
-		height: 3.5em;
-		min-width: 12em;
-		}
+    min-width: 12em;
+  }
 }
 
 /* Portrait orientation */
 @media only screen and (max-device-width: 480px) and (orientation: portrait) {
+  body {
+    font-size: 20px !important;
+  }
 
-	body {
-		font-size: 20px !important;
-		}
-	#ziatour h1,
-	#ziatour h2 {
-		font-size: 1.5em;
-		}
-	#ziatour h3 {
-		font-size: 1.375em;
-		}
-	body #ziatour .logo {
-		top: 4%;
-		width: 60%;
-		left: 50%;
-		transform: translateX(-50%);
-		}
-	#ziatour #mobile div.dialog {
-		text-align: center;
-		padding: 2em 1.5em 4.5em;
-		top: 0;
-		left: 0;
-		transform: none;
+  #ziatour h1,
+  #ziatour h2 {
+    font-size: 1.5em;
+  }
+
+  #ziatour h3 {
+    font-size: 1.375em;
+  }
+
+  body #ziatour .logo {
+    top: 4%;
+    width: 60%;
+    left: 50%;
+		@include transform(translateX(-50%));
+  }
+
+  #ziatour #mobile div.dialog {
+    text-align: center;
+    padding: 2em 1.5em 4.5em;
+    top: 0;
+    left: 0;
+		@include transform(none);
     display: block;
-		}
-	#ziatour #mobile .dialog .bg-img {
-		width: 72%;
-		top: 0;
-		right: 0;
-		margin: 2em auto 1em;
-		position: relative;
-		}
-	#ziatour #mobile .content {
-    margin-top: 24%;
-		}
-	#ziatour #mobile .dialog ul {
-		text-align: left;
-		}
-	body #ziatour #mobile input[name=email] {
-		padding: 0 3.25em 0 1em;
-		}
-	#ziatour .border-bottom:after {
-		height: .5em;
-		}
-}
+  }
 
+  #ziatour #mobile .dialog .bg-img {
+    width: 72%;
+    top: 0;
+    right: 0;
+    margin: 2em auto 1em;
+    position: relative;
+  }
+
+  #ziatour #mobile .content {
+    margin-top: 24%;
+  }
+
+  #ziatour #mobile .dialog ul {
+    text-align: left;
+  }
+
+  body #ziatour #mobile input[name=email] {
+    padding: 0 3.25em 0 1em;
+  }
+
+  #ziatour .border-bottom:after {
+    height: .5em;
+  }
+}
 /* Portrait orientation - narrow device */
 @media only screen and (max-device-width: 360px) and (orientation: portrait) {
+  body {
+    font-size: 18px !important;
+  }
 
-	body {
-		font-size: 18px !important;
-		}
-	#ziatour #mobile div.dialog {
-		padding: 2em 1em 4.5em;
-		}
-	#ziatour #mobile .dialog .bg-img {
-		width: 80%;
-		margin: 8% auto 0;
-		}
+  #ziatour #mobile div.dialog {
+    padding: 2em 1em 4.5em;
+  }
+
+  #ziatour #mobile .dialog .bg-img {
+    width: 80%;
+    margin: 8% auto 0;
+  }
 }
 
-
 /***** END GLOBAL STYLES - DO NOT EDIT ABOVE THIS LINE *****/
-/**/
-/**/
-/**/
 /**/

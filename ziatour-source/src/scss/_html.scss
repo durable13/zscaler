@@ -85,6 +85,8 @@ body {
 
 #ziatour ::-webkit-input-placeholder,
 #ziatour ::placeholder {
+	font-size: inherit;
+	line-height: inherit;
 	font-family: $roboto-medium;
 	color: $med-gray;
 	}
@@ -105,3 +107,4 @@ body {
 	@include userSelect(none);
 	}
 
+/***** END HTML *****/

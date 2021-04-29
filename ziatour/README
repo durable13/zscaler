@@ -21,6 +21,12 @@ The video URL can be edited directly in tour-content.htm
 MARKETO EMAIL CAPTURE
 ---------------------
 
+The Marketo cut-and-paste code can't be loaded directly in 
+
+See Marketo 'Forms 2.0' API documentation for details.
+https://developers.marketo.com/javascript-api/forms/
+
+
 Edit the Marketo cut-and-paste for code directly in tour-content.htm.
 It appears in two places, look for "email-capture" in mobile and desktop nodes.
 
@@ -58,7 +64,7 @@ The tour loads the following files plus an image archive of screen-shots:
 
 	6) zia-tour/img/screens/
 		 A directory containing screen-shot images of various tour steps and states
-		 (i.e. background, hover, and focus)
+		 (background, hover, focus)
 
 
 EDITING TOUR CONTENT
