@@ -50,6 +50,6 @@ ziaTourInit = function(params) {
 };
 
 ziaTour({
-    cache: false,
+    cache: true,
     debug: false
 });

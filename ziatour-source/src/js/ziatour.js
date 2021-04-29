@@ -122,4 +122,4 @@ ziaTourInit = function(params){
 
 }
 
-ziaTour({ cache:false, debug:false });
+ziaTour({ cache:true, debug:false });

@@ -23,7 +23,6 @@
 			/* goto() is the tour workhorse. It handles the node/page changes and triggers various node related actions. */
 			goto = function(i){
 
-
 				var $node, curNode;
 				if( i >= 0 && i<$nodes.length) {
 
@@ -362,7 +361,8 @@
 					$node.find('.target').on('click', function(){
 						$node = $(this).parents('.node');
 						$node.removeClass('focus');
-						next(i);
+						var idx = $node.index();
+						next(idx);
 					});
 					$node.find('.target').hover(
 						function() {
@@ -498,5 +498,3 @@
 	}
 	return this;
 }(jQuery);
-
-

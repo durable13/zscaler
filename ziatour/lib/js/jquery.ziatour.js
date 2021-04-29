@@ -206,7 +206,8 @@
                 $node.find(".target").on("click", function() {
                     $node = $(this).parents(".node");
                     $node.removeClass("focus");
-                    next(i);
+                    var idx = $node.index();
+                    next(idx);
                 });
                 $node.find(".target").hover(function() {
                     $node = $(this).parents(".node");
