@@ -1,4 +1,4 @@
-/* Zia Tour Plugin v1.0
+/* Zia Tour Plugin v1.1
    Author: Erich Richter <studio@erichrichter.com>
    Date: 2021.03.23
    */
@@ -86,7 +86,7 @@
 					/* All done, now hide the previous node and show the current node. */
 					$nodes.removeClass('show'); // hide all
 					$node.addClass('show'); // show current
-
+					setVideoAspect($node);
 				}
 			},
 
@@ -118,6 +118,24 @@
 				});
 			},
 
+			// Resize video to proper proportion for portrait orientation, defaults to HD
+			setVideoAspect = function($node){
+				var $video = $node.find('.video');
+				if(!$video.length || !$node.hasClass('show')) return;
+				var ht = $node.height(),
+					wd = $node.width(),
+					orientation = $(this).width()>$(this).height() ? 'landscape': 'portrait';
+				//console.log('id:'+$video.attr('id')+' ht:'+ht+' wd:'+wd+' orientation:'+orientation);
+				if(wd>0){
+					var aspect = $video.data('aspect') ? $video.data('aspect').split(':') : '',
+						ratio =  aspect ? aspect[1]/aspect[0] : (9/16),
+						calcHt = wd*ratio;
+					calcHt = (calcHt>ht && orientation == 'landscape') ? ht : calcHt;
+					//console.log('calcHt:'+calcHt);
+					$video.height(calcHt);
+				}
+			},
+
 			/* Adds hashchange event listener to enable browser back button functionality. */
 			initBackButtonSafe = function(){
 				window.onhashchange = gotoHash;
@@ -135,26 +153,33 @@
 
 				if($form.length){
 
+					// See FormsPlus.onSubmitError add-on script included at the bottom of this page.
+					FormsPlus.onSubmitError(function(error) {
+						console.log('A network or server error was detected on posting form data: ' + error);
+					});
+
 					// Initialize the Marketo form.
 					MktoForms2.loadForm('//info.zscaler.com', '306-ZEJ-256', 4776, function(form){
-
 
 						// Change the submit button text to 'continue'.
 						$form.find('.mktoButton[type=submit]').html('continue');
 
 						// Set the gatedStartNode to the node immediately following whatever node the Marketo form is on.
 						// This tells goto() which nodes are locked prior to submitting the form.
+						// Desktop and Mobile probably have different start nodes so we sort those out here.
 
 						if(!$this.data('isMobile')) {
+							// This is a desktop request.
 							$this.data('gatedStartNode', $primaryLoginContainer.parents('.node').index()+1 );
 						}
 						else {
+							// This is a mobile request.
 							var $mobileLoginContainer = $loginContainer.eq(1);
 							if($mobileLoginContainer.length){
 
 								$this.data('gatedStartNode', $mobileLoginContainer.parents('.node').index()+1 );
 
-								// Move the form to its mobile node.
+								// To prevent form load/submit conflicts we only load one form, then move it where it is needed for mobile.
 								$mobileLoginContainer.append($form);
 							}
 						}
@@ -188,13 +213,24 @@
 				var i, j, loaded = 0;
 
 				for( i=0, j=urls.length; i<j; i++ ) {
+
+					// Firefox image preload bug workaround, apparently doesn't improve things
+					// $body.append('<img src="'+urls[i]+'" style="width:1px;height:1px;opacity:0;">');
+
 					( function (img, src) {
-						img.onload = function () {              
+						img.src = src;
+						img.onload = function () {
+							//console.log('preloadImgs: '+(loaded+1)+' of '+urls.length);       
  							if (++loaded == urls.length && fn) fn();
 						};
-            img.onerror = fn;
-            img.onabort = fn;
-						img.src = src;
+            img.onerror = function() {
+							console.log('preloadImgs Error: '+loaded+' of '+urls.length);    
+							fn();
+						}
+            img.onabort = function() {
+							console.log('preloadImgs Abort: '+loaded+' of '+urls.length);    
+							fn();
+						}
 					} ( new Image(), urls[i] ) );
 				}
 			},
@@ -391,6 +427,13 @@
 						prev(i);
 					});
 				});
+
+				$(window).on('resize', function(e){
+					$nodes.each(function(i){
+						setVideoAspect($nodes.eq(i));
+					});
+				});
+
 			},
 
 			/* Show the first node. */
@@ -401,6 +444,7 @@
 				// If we are reloading images wait until they are all laoded before starting tour.
 				if(arrImg.length) {
 					preloadImgs(arrImg, function(){
+						// console.log('images loaded')
 						goto(0);
 					});
 				}
@@ -498,3 +542,99 @@
 	}
 	return this;
 }(jQuery);
+
+
+
+
+/* Marketo FormsPlus.onSubmitError
+   Included to compensate for Marketo Forms2.js lack of post error event handling.
+   FormsPlus::onSubmitError
+   https://blog.teknkl.com/adding-a-network-server-error-handler-to-marketo-forms/
+   @author Sanford Whiteman @license MIT
+   */
+
+window.FormsPlus = window.FormsPlus || {
+  allDescriptors: {},
+  allMessages: {},
+  detours: {}
+};
+
+FormsPlus.onSubmitError = function(cb) {
+  
+  var listenPending = true;
+  
+  MktoForms2.whenReady(function(form) {    
+    var sameOrigin = !window.MktoForms2XDIframe;
+    if (sameOrigin) addSameOriginHandler(form);
+    if (listenPending) listenErrors(cb, sameOrigin);    
+  });
+
+  function listenErrors(cb, sameOrigin) {      
+     window.addEventListener("message", function(e) {
+      var msg, allowedLoc, allowedOrigin;
+
+      if (sameOrigin) {
+        allowedLoc = document.location;
+      } else {
+        allowedLoc = document.createElement("A");
+        allowedLoc.href = MktoForms2XDIframe.src;
+      }
+
+      allowedOrigin = getOrigin(allowedLoc);
+      if (e.origin != allowedOrigin) return;
+
+      try {
+        msg = JSON.parse(e.data);
+        if (msg.mktoResponse && msg.mktoResponse.error == true) {
+          cb(msg.mktoResponse.data);
+        }
+      } catch (err) {}
+    });
+     
+    listenPending = false;
+  }
+
+  function addSameOriginHandler(form) {
+
+    if (!window.MutationObserver) {
+      console.log("Cannot listen for named form errors in this browser.");
+      return;
+    }
+
+    var formId = form.getId(),
+        formEl = form.getFormElem()[0],
+        submitEl = formEl.querySelector(".mktoButton"),
+        observerConfig = {
+          attributes: true,
+          attributeOldValue: true,
+          attributeFilter: ["disabled"]
+        };
+    
+    var observer = new MutationObserver(function(mutations) {
+      mutations
+      .filter(function(mutation) {
+        return mutation.oldValue == "disabled";
+      })
+      .forEach(function(mutation) {
+        var data = {
+          mktoResponse: {
+            error: true,
+            data: "Form ID " + formId
+          }
+        };
+        
+        var dataString = JSON.stringify(data),
+          targetOrigin = getOrigin(document.location);
+
+        window.postMessage(dataString, targetOrigin);
+      });
+    });
+    
+    observer.observe(submitEl, observerConfig);        
+  }
+  
+  function getOrigin(loc){
+    return loc.origin || [loc.protocol, loc.host].join("//");
+  }
+ 
+};
