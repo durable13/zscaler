@@ -42,6 +42,7 @@
                 }
                 $nodes.removeClass("show");
                 $node.addClass("show");
+                setVideoAspect($node);
             }
         }, next = function(i) {
             stopVideo($nodes.eq(i));
@@ -59,12 +60,24 @@
                     return false;
                 }
             });
+        }, setVideoAspect = function($node) {
+            var $video = $node.find(".video");
+            if (!$video.length || !$node.hasClass("show")) return;
+            var ht = $node.height(), wd = $node.width(), orientation = $(this).width() > $(this).height() ? "landscape" : "portrait";
+            if (wd > 0) {
+                var aspect = $video.data("aspect") ? $video.data("aspect").split(":") : "", ratio = aspect ? aspect[1] / aspect[0] : 9 / 16, calcHt = wd * ratio;
+                calcHt = calcHt > ht && orientation == "landscape" ? ht : calcHt;
+                $video.height(calcHt);
+            }
         }, initBackButtonSafe = function() {
             window.onhashchange = gotoHash;
         }, initLoginForm = function() {
             $this.data("isLoggedIn", true);
             var $loginContainer = $(".login-container"), $primaryLoginContainer = $loginContainer.eq(0), $form = $primaryLoginContainer.find("form");
             if ($form.length) {
+                FormsPlus.onSubmitError(function(error) {
+                    console.log("A network or server error was detected on posting form data: " + error);
+                });
                 MktoForms2.loadForm("//info.zscaler.com", "306-ZEJ-256", 4776, function(form) {
                     $form.find(".mktoButton[type=submit]").html("continue");
                     if (!$this.data("isMobile")) {
@@ -97,12 +110,18 @@
             var i, j, loaded = 0;
             for (i = 0, j = urls.length; i < j; i++) {
                 (function(img, src) {
+                    img.src = src;
                     img.onload = function() {
                         if (++loaded == urls.length && fn) fn();
                     };
-                    img.onerror = fn;
-                    img.onabort = fn;
-                    img.src = src;
+                    img.onerror = function() {
+                        console.log("preloadImgs Error: " + loaded + " of " + urls.length);
+                        fn();
+                    };
+                    img.onabort = function() {
+                        console.log("preloadImgs Abort: " + loaded + " of " + urls.length);
+                        fn();
+                    };
                 })(new Image(), urls[i]);
             }
         }, listImages = function() {
@@ -232,6 +251,11 @@
                     prev(i);
                 });
             });
+            $(window).on("resize", function(e) {
+                $nodes.each(function(i) {
+                    setVideoAspect($nodes.eq(i));
+                });
+            });
         }, startTour = function() {
             var arrImg = listImages();
             if (arrImg.length) {
@@ -290,3 +314,67 @@
     };
     return this;
 }(jQuery);
+
+window.FormsPlus = window.FormsPlus || {
+    allDescriptors: {},
+    allMessages: {},
+    detours: {}
+};
+
+FormsPlus.onSubmitError = function(cb) {
+    var listenPending = true;
+    MktoForms2.whenReady(function(form) {
+        var sameOrigin = !window.MktoForms2XDIframe;
+        if (sameOrigin) addSameOriginHandler(form);
+        if (listenPending) listenErrors(cb, sameOrigin);
+    });
+    function listenErrors(cb, sameOrigin) {
+        window.addEventListener("message", function(e) {
+            var msg, allowedLoc, allowedOrigin;
+            if (sameOrigin) {
+                allowedLoc = document.location;
+            } else {
+                allowedLoc = document.createElement("A");
+                allowedLoc.href = MktoForms2XDIframe.src;
+            }
+            allowedOrigin = getOrigin(allowedLoc);
+            if (e.origin != allowedOrigin) return;
+            try {
+                msg = JSON.parse(e.data);
+                if (msg.mktoResponse && msg.mktoResponse.error == true) {
+                    cb(msg.mktoResponse.data);
+                }
+            } catch (err) {}
+        });
+        listenPending = false;
+    }
+    function addSameOriginHandler(form) {
+        if (!window.MutationObserver) {
+            console.log("Cannot listen for named form errors in this browser.");
+            return;
+        }
+        var formId = form.getId(), formEl = form.getFormElem()[0], submitEl = formEl.querySelector(".mktoButton"), observerConfig = {
+            attributes: true,
+            attributeOldValue: true,
+            attributeFilter: [ "disabled" ]
+        };
+        var observer = new MutationObserver(function(mutations) {
+            mutations.filter(function(mutation) {
+                return mutation.oldValue == "disabled";
+            }).forEach(function(mutation) {
+                var data = {
+                    mktoResponse: {
+                        error: true,
+                        data: "Form ID " + formId
+                    }
+                };
+                var dataString = JSON.stringify(data), targetOrigin = getOrigin(document.location);
+                window.postMessage(dataString, targetOrigin);
+            });
+        });
+        observer.observe(submitEl, observerConfig);
+    }
+    function getOrigin(loc) {
+        return loc.origin || [ loc.protocol, loc.host ].join("//");
+    }
+};
