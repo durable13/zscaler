@@ -21,15 +21,15 @@
 #ziatour #intro-1 .col-2:last-child {
 	width: 25% !important;
 	}
-#ziatour #intro-1 .mktoForm {
-	}
 #ziatour #intro-1 .mktoButton {
 	position: fixed;
+	font-size: 1.25em;
+	font-size: calc(18px + 6 * ((100vw - 1280px) / 480));
 	}
 
 /* Each tooltip here has two animations, one to show it and one to hide it.
    Note the different 'show' timings but all close at the same time.
-   Note also that this the requires 'animationTwo' mixin to accomodate the two animation declaration.
+   Note also that in SCSS this the requires 'animationTwo' mixin to accomodate the two animation declaration.
    */
 
 #ziatour #intro-2.show .tip1 .shape {
@@ -149,7 +149,8 @@
 }
 
 #ziatour #config-7 .marker {
-  top: 52.75%;
+	top: auto;
+	bottom: 2%;
   left: 3%;
   width: 28%;
 }
@@ -216,8 +217,11 @@
   width: 5.5%;
 }
 
-#ziatour #report-6 .marker {
-  top: 20.5%;
+#ziatour #report-6 .marker { 
+	/* Safari has a font sizing bug that forces this dialog to be too tall,
+     so for this one position it from the bottom do the pointer is in the right place. */
+	top: auto;
+	bottom: 49.5%;
   left: 12%;
   width: 24%;
 }
@@ -230,7 +234,10 @@
 }
 
 #ziatour #report-7 .marker {
-  top: 20.5%;
+	/* Safari has a font sizing bug that forces this dialog to be too tall,
+     so for this one position it from the bottom do the pointer is in the right place. */
+	top: auto;
+	bottom: 49.5%;
   left: 12%;
   width: 24%;
 }
@@ -248,7 +255,7 @@
 }
 
 #ziatour #report-8 .marker {
-  top: 45.5%;
+  top: 45%;
   left: 14%;
 }
 
@@ -260,7 +267,7 @@
 }
 
 #ziatour #report-9 .marker {
-  top: 45.5%;
+  top: 45%;
   left: 14%;
 }
 
@@ -272,7 +279,7 @@
 }
 
 #ziatour #report-10 .marker {
-  top: 52.5%;
+  top: 52.25%;
   left: 14%;
 }
 
@@ -284,7 +291,7 @@
 }
 
 #ziatour #report-11 .marker {
-  top: 62%;
+  top: 61.5%;
   left: 14%;
 }
 
@@ -296,7 +303,7 @@
 }
 
 #ziatour #report-12 .marker {
-  top: 73.5%;
+  top: 73%;
   left: 14%;
 }
 
@@ -308,7 +315,7 @@
 }
 
 #ziatour #report-13 .marker {
-  top: 73.5%;
+  top: 73%;
   left: 14%;
 }
 
@@ -320,7 +327,7 @@
 }
 
 #ziatour #report-14 .marker {
-  top: 73.5%;
+  top: 73%;
   left: 14%;
 }
 
@@ -416,12 +423,17 @@
 #ziatour #m-video {
   background-color: #059BD8;
   background: linear-gradient(212deg, #059BD8 10%, #0A658C 90%);
+	padding: 10px;
 }
 
 #ziatour #m-video iframe {
   height: 100%;
   width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
   z-index: 0;
+	background-color: $dark-gray;
   position: relative;
 }
 
